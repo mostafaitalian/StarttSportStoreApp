@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PagedList<Product>
+@{
+    Layout = "_StoreLayout";
+}
+<div class="container-fluid">
+    <div class="row no-gutters">
+    <div class="col-auto">
+        <br /><br />
+        @Html.Partial("Categories", ViewBag.Categories as PagedList<Category>)
+    </div>
+    <div class="col">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header" data-toggle="collapse" data-target="#lss">head</div>
+                <div class="card-body" id="lss">Ccccccccccccccccccccc</div>
+            </div>
+            <div class="row pt-2 pb-2">
+                <div class="col"></div>
+                <div class="col-6 text-center form-group">
+                    <input form="formpage" name="options.searchpropertyname" type="hidden" value="Name" />
+                    <input class="form-control" form="formpage" name="option.searchterm" type="text" placeholder="Search.." />
+                </div>
+                <div class="col">
+                    <button form="formpage" type="submit" class="btn btn-outline-warning">Search</button>
+                </div>
+                <div class="col"></div>
+            </div>
+            @foreach(Product p in Model) { 
+
+            string s = "#" + @p.Name.Split(" ")[0];
+
+             <div class="row mb-2">
+
+                    <div class="col">
+                        <div class="card bg-light">
+                            <div class="card-header" data-toggle="collapse" data-target="@s">@p.Name</div>
+                            
+                            <div class="card-body collapse bg-primary text-white"  id="@p.Name.Split(" ")[0]">
+                                @p.Name<span class="badge badge-pill padge-primary" style="float:right">@p.RetailPrice</span>
+                                <div class="card-link">
+                                    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                        <input type="hidden" name="ProductId" value="@p.ProductID" />
+                                        <input type="hidden" name="name" value="@p.Name" />
+                                        <input type="hidden" name="categoryId" value="@p.CategoryId" />
+                                        <input type="hidden" name="retailprice" value="@p.RetailPrice" />
+                                        <input type="hidden" name="price" value="@p.Price" />
+                                        <input type="hidden" name="returnurl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                                    <button  class="btn btn-outline-danger" type="submit">
+                                        add TO Cart
+                                    </button>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    </div>
+</div>

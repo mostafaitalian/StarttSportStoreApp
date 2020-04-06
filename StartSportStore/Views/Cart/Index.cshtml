@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Cart
+@{
+    Layout = "_StoreLayout";
+}
+
+<div class="bg-danger text-center p-2"><h5>Your Cart</h5></div>
+<div class="row mt-3">
+    <div class="col">Quantity</div>
+
+    <div class="col">Name</div>
+    <div class="col">Price</div>
+    <div class="col">TotalPrice</div>
+    <div class="col"></div>
+
+
+</div>
+@if (Model.Selections.Count() == 0)
+{
+    <div class="row">
+        <p class="lead">there is no product in your cart</p>
+    </div>
+
+}
+<div class=""></div>
+@foreach (OrderLine line in Model.Selections)
+{
+<div class="row m-2 table">
+    <div class="col">@line.Quantity</div>
+    <div class="col">@line.Product.Name</div>
+    <div class="col">@line.Product.RetailPrice.ToString("f2")</div>
+
+    <div class="col">$@((line.Product.RetailPrice*@line.Quantity).ToString("f2"))</div>
+    <div class="col">
+        <form asp-action="RemoveFromCart">
+            <button type="submit" name="ProductId" value="@line.ProductId" class="btn btn-outline-danger">Remove</button>
+        </form>
+    </div>
+
+
+</div>
+}

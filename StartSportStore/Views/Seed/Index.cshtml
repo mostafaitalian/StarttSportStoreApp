@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Product>
+@{
+    Layout = "_Layout";
+}
+
+
+<h3 class="p-2 text-center text-white bg-primary">Seed Data</h3>
+<form method="post">
+    <div class="form-group">
+        <label for="count">Number of objects to create</label>
+        <input class="form-control" name="count" type="number" value="50" />
+    </div>
+    <button type="submit" asp-action="CreateProductionData" class="btn btn-outline-primary">create production data</button>
+    <button asp-action="CreateSeedData" type="submit" class="btn btn-outline-primary">create seed data</button>
+    <button asp-action="ClearData" class="btn btn-outline-danger">delete data</button>
+</form>
+
+<h5 class="text-center m-2">
+    There are @ViewBag.Count products in the database
+</h5>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1 font-weight-bold">Id</div>
+        <div class="col font-weight-bold">Name</div>
+        <div class="col font-weight-bold">Category</div>
+        <div class="col font-weight-bold text-right">price</div>
+        <div class="col font-weight-bold text-right">Retail</div>
+    </div>
+    @foreach (Product p in Model)
+    {
+        <div class="row">
+            <div class="col-1">@p.ProductID</div>
+            <div class="col">@p.Name</div>
+            <div class="col">@p.Category.Name</div>
+            <div class="col text-right">@p.Price</div>
+            <div class="col text-right">@p.RetailPrice</div>
+        </div>
+    }
+</div>

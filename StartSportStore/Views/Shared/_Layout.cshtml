@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StartSportStore</title>
+
+    <environment include="Development">
+
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        
+    </environment>
+    <style>
+        .placeholder {
+            visibility: collapse;
+            display: none;
+        }
+
+            .placeholder:only-child {
+                visibility: visible;
+                display: flex;
+            }
+    </style>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <!--<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />-->
+    </environment>
+</head>
+<body>
+    <div class="container-fluid">
+    <header class="navbar navbar-light navbar-expand-lg bg-secondary">
+        <h4>
+            <a href="/" class="navbar-brand">
+                <i class="fa fa-rocket"></i>
+                Space is Amazing
+            </a>
+        </h4>
+        <div class="p-2 d-lg-none">
+            <button class="btn btn-danger navbar-toggler" data-toggle="collapse" data-target="#themm">&#9776;</button>
+        </div>
+        <div class="navbar-collapse collapse" id="themm">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/gallery.html" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary nav-link dropdown-toggle" data-toggle="dropdown">planets</button>
+                        <div class="dropdown-menu dropdown-menu-sm-right">
+                            <a href="" class="dropdown-item">type1</a>
+                            <a href="" class="dropdown-item">type2</a>
+                            <a href="" class="dropdown-item">type3</a>
+                            <a href="" class="dropdown-item">type4</a>
+                            <a href="" class="dropdown-item">type5</a>
+                            <a href="" class="dropdown-item">type6</a>
+                            <a href="" class="dropdown-item">type7</a>
+                            <a href="" class="dropdown-item">type8</a>
+                            <a href="" class="dropdown-item">type9</a>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+</div>
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container-fluid p-2">
+        <div class="row p-2">
+            <div class="col-2">
+                <a class="@getd("Product") d-block mb-5" asp-controller="Product" asp-action="Index">Products</a>
+                <a class="@getd("Category") d-block mb-5" asp-controller="Category" asp-action="Index">Categories</a>
+                <a class="@getd("Order") d-block mb-5" asp-controller="Order" asp-action="Index">Orders</a>
+                <a class="@getd("Seed") d-block mb-5" asp-controller="Seed" asp-action="Index">Seed Data</a>
+                <a class="@getd("Store") d-block mb-5" asp-controller="Store" asp-action="Index">Store</a>
+            </div>
+            <div class="col-10">
+                @RenderBody()
+                <hr />
+
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2020 - StartSportStore</p>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+@functions{
+    string getd(string controller)
+    {
+        return "btn " + ((ViewContext.RouteData.Values["Controller"] as string == controller)? "btn-primary":"btn-outline-primary");
+    }
+}

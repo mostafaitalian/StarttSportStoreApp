@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Product
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10 col-m-8 col-lg-8 offset-lg-2 offset-md-2 offset-sm-1">
+        <div class="card-outline-danger bg-gradient-secondary">
+            <div class="card-header" data-toggle="collapse" data-target="#thecbody">
+                <h5 class="lead text-capitalize tab" >@Model.Name</h5>
+            </div>
+            <div class="card-body bg-warning align-content-center"  id="thecbody">
+                <table class="table table-bordered" width="100%" border="1" bordercolor="blue" cellspacing="2" cellpadding="2">
+                    <thead class="thead">
+                        <tr>
+                            <td>
+                                Product Id
+                            </td>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                Category
+                            </td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Model.ProductID
+                            </td>
+                            <td>
+                                @Model.Name
+                            </td>
+                            <td>
+                                @Model.Category.Name
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        </div>
+        <br /><br />
+    <div class="row">
+        <form asp-action="UpdateProduct" method="post" >
+            <div class="form-group">
+                <label for="id">Product ID</label>
+                <input class="form-control" type
+                       ="number" asp-for="@Model.ProductID" name="id" value="@Model.ProductID" disabled/>
+            </div>
+            <div class="form-group">
+                <label  asp-for="@Model.CategoryId"></label>
+                <select class="form-control" asp-for="@Model.CategoryId">
+                    @if (Model.CategoryId == 0)
+                    {
+                        <option selected>insert new category</option>
+
+                    }
+                        @foreach (Category c in ViewBag.categories)
+                        {
+                        <option selected="@(c.Id==Model.CategoryId)" value="@c.Id">@c.Name</option>
+                    }
+                    </select>
+            </div>
+            
+        </form>
+    </div>
+</div>

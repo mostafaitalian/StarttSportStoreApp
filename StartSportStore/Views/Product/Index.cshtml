@@ -1,0 +1,83 @@
+﻿
+@model IEnumerable<Product>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+  
+    ViewBag.searches = new string[] { "Name", "Category.Name" };
+    ViewBag.sorts = new string[] { "Name", "Category.Name", "RetailPrice", "Price" };
+ 
+}
+<div class="text-center">
+
+    @Html.Partial("Page", Model)
+    @Html.Partial("PageOptions", Model)
+</div>
+<h5 class="p-2 bg-primary text-center text-white">Products</h5>
+<div class="container-fluid">
+    <div class="row" style="display:flex; align-content:space-between;">
+        <div class="col-1 font-weight-bold">id</div>
+        <div class="col font-weight-bold">Name</div>
+        <div class="col font-weight-bold">Category</div>
+        <div class="col font-weight-bold">Description</div>
+        <div class="col font-weight-bold">Price</div>
+        <div class="col font-weight-bold">Retail Price</div>
+        <div class="col-1"></div>
+    </div>
+    <br />
+    <form asp-action="AddProduct" method="post" class="form-row">
+        <div class="row" style="display:flex; align-content:space-between;">
+            <div class="col-1 text-info">
+                <input class="d-inline" type="number" disabled name="id" />
+            </div>
+            <div class="col-2 text-info">
+                <input class="d-inline" type="text" name="Name" />
+            </div>
+            <div class="col-2 text-info">
+                <input class="d-inline" type="number" name="CategoryId" />
+            </div>
+            <div class="col-2 text-info">
+                <input class="d-inline" type="text" name="Description" />
+            </div>
+            <div class="col-2 text-info">
+                <input class="d-inline" type="text" name="Price" />
+            </div>
+            <div class="col-2 text-info">
+                <input type="text" name="RetailPrice" />
+            </div>
+            <div class="col-1 pl-1">
+                <button class="btn btn-primary" type="submit">Add</button>
+
+            </div>
+        </div>
+
+
+    </form>
+    <br />
+    @foreach (var p in Model)
+    {
+        <div class="row p-1 table-bordered" style="border-color:aqua;">
+            <div class="col-1 text-center">@p.ProductID</div>
+            <div class="col-2 text-center">@p.Name</div>
+            <div class="col-2 text-center">@p.Category.Name</div>
+            @{ string x = p.Category.Name;}
+
+
+            <div class="col-2 lead text-center">@p.Description</div>
+            <div class="col-2 lead text-center">@p.Price</div>
+            <div class="col-2 lead text-center">@p.RetailPrice</div>
+            <form asp-action="DeleteProduct" method="post">
+                <a asp-action="UpdateProduct" asp-route-id="@p.ProductID" class="btn btn-outline-primary">
+                    Edit
+                </a>
+                <input type="hidden" name="Id" value="@p.ProductID" />
+                <button type="submit" class="btn btn-outline-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
+
+    }
+</div>

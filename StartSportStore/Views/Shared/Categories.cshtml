@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model PagedList<Category>
+<div class="container-fluid">
+    <div class="row">
+    <button name="categoryoptions.currentpage" class="btn btn-block btn-outline-success" value="@Model.CurrentPage-1" @(!Model.HasPreviousPage?"disabled":"")>previous</button>
+        </div>
+    @foreach(Category c in Model)
+    {
+        <div class="row">
+            <button form="formpage" class="btn btn-block @(c.Id==ViewBag.SelectedCategory?"btn-success":"btn-outline-success")" name="category" type="submit" value="@c.Id">@c.Name</button>
+        </div>
+    }
+    <div class="row">
+        <button name="categoryoptions.currentpage" value="@Model.CurrentPage+1" class="btn btn-block btn-outline-success" @(!Model.HasNextPage?"disabled":"")>next</button>
+    </div>
+</div>

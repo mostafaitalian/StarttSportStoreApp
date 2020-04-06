@@ -1,0 +1,20 @@
+﻿@using StartSportStore.Models.pages
+
+@{
+}
+    <form id="pageform" method="get" class="form-inline d-inline-block">
+        <button name="options.CurrentPage" type="submit" value="@(Model.CurrentPage-1)" class="btn btn-outline-primary" @(!Model.HasPreviousPage ? "disabled" : "")>Previous</button>
+
+
+
+        <button name="options.CurrentPage" value="@(Model.CurrentPage+1)" type="submit" class="btn btn-outline-primary" @(!Model.HasNextPage ? "disabled" : "")>Next</button>
+        <select name="options.PageSize" class="form-control">
+            @foreach (int i in new int[] { 10, 20, 30, 40, 50, 60 })
+            {
+                <option value="@i" selected="@(Model.PageSize==i)">@i</option>
+            }
+
+        </select>
+        <input type="hidden" name="options.CurrentPage" value="1" />
+        <button class="btn btn-secondary" type="submit">change Page size</button>
+    </form> 
